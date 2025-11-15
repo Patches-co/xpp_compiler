@@ -1,4 +1,3 @@
-// scanner.cpp
 #include "scanner.h"
 #include <cctype>
 #include <stdexcept>
@@ -24,7 +23,7 @@ int Scanner::getLine()
 }
 
 
-void Scanner::readChar() // Avança um caracter
+void Scanner::readChar() // Avança um caractere
 {
     pos++; // Avança a posição
     if (pos < input.length()) {
@@ -56,42 +55,42 @@ Token* Scanner::nextToken()
 
         // Reconhecer Tokens
         
-        // ID ou Palavra-Chave
+        // 1. ID ou Palavra-Chave
         if (isalpha(currentChar) || currentChar == '_') {
             return processIdentifierOrKeyword();
         }
 
-        // INTEGER_LITERAL
+        // 2. INTEGER_LITERAL
         if (isdigit(currentChar)) {
             return processNumber();
         }
 
-        // STRING_LITERAL
+        // 5. STRING_LITERAL
         if (currentChar == '"') {
             return processString();
         }
 
-        // Separadores
+        // 4. Separadores
         if (string("()[]{},;.").find(currentChar) != string::npos) {
             return processSeparator();
         }
 
-        // Operadores
+        // 3. Operadores
         if (string("<>=!+-*/%").find(currentChar) != string::npos) {
             return processOperator();
         }
 
-        // Se não for nada disso, é um erro
         string errorMsg = "Token mal formado: '";
         errorMsg += currentChar;
         errorMsg += "'";
         lexicalError(errorMsg);
     }
 
-    // Chegou ao fim do ficheiro
+    // End of file
     return new Token(END_OF_FILE, line);
 }
 
+// 7. Espaços em branco
 void Scanner::skipWhitespace() 
 {
     while (currentChar != '\0' && isspace(currentChar)) {
@@ -99,6 +98,8 @@ void Scanner::skipWhitespace()
     }
 }
 
+
+// 8. Comentários
 void Scanner::skipComments() 
 {
     readChar(); // Consome o primeiro '/'
@@ -180,12 +181,11 @@ Token* Scanner::processString()
     return new Token(STRING_LITERAL, lexeme, startLine);
 }
 
-// Processa todos os separadores de 1 caracter
 Token* Scanner::processSeparator()
 {
     int startLine = line;
     char sep = currentChar;
-    readChar(); // Consome o caractere
+    readChar();
 
     switch(sep) {
         case '(': return new Token(SEP, ATTR_SEP_LPAREN, startLine);
@@ -207,7 +207,7 @@ Token* Scanner::processOperator()
     char op1 = currentChar;
     char op2 = (pos + 1 < input.length()) ? input[pos+1] : '\0';
 
-    readChar(); // Consome o primeiro caracter
+    readChar();
 
     // OP c/ 2 caracteres
     if (op1 == '<' && op2 == '=') {
