@@ -2,24 +2,22 @@
 
 class Parser
 {
-    private:
-        Scanner* scanner;
-        Token* lToken;
+	private:
+		Scanner* scanner;
+		Token* lToken;
+		SymbolTable* globalST;
+    	SymbolTable* currentST;
 
-        void advance();
-        void match(int);
+		void advance();
+		void match(int);
+		void error(string);
+		void initSimbolTable();
 
-        void goal();
-        void expr();
-        void exprLinha();
-        void term();
-        void termLinha();
-        void factor();
-
-        void error(string);
-        
-    public:
-        Parser(string);
-
-        void run();
+		void program();
+		void classList();
+		void classDecl();
+		//CONTINUAR
+	public:
+		Parser(string);
+		void run();
 };

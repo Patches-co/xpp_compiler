@@ -2,22 +2,16 @@
 
 Parser::Parser(string input)
 {
-	scanner = new Scanner(input);
-    advance();
-}
+	currentST = globalST = new SymbolTable();
+	initSimbolTable();
 
-void
-Parser::run()
-{
-    goal();
+	scanner = new Scanner(input, globalST);
 }
 
 void
 Parser::advance()
 {
 	lToken = scanner->nextToken();
-
-    //cout << lToken->name << endl;
 }
 
 void
@@ -29,83 +23,95 @@ Parser::match(int t)
 		error("Erro inesperado");
 }
 
-void 
-Parser::goal()
+void
+Parser::run()
 {
-	expr();
-}
+	advance();	
 
-void 
-Parser::expr()
-{
-	term();
-	exprLinha();
-}
-
-void 
-Parser::exprLinha()
-{
-	if (lToken->name == PLUS)
-	{
-		advance();
-		term();
-		exprLinha();
-	}
-	else if (lToken->name == MINUS)
-	{
-		advance();
-		term();
-		exprLinha();
-	}
-	//else
-	//	;
-}
-
-void 
-Parser::term()
-{
-	factor();
-	termLinha();
-}
-
-void 
-Parser::termLinha()
-{
-	if (lToken->name == MULT)
-	{
-		advance();
-		factor();
-		termLinha();
-	}
-	else if (lToken->name == DIV)
-	{
-		advance();
-		factor();
-		termLinha();
-	}
-}
-
-void 
-Parser::factor()
-{
-	if (lToken->name == NUMBER)
-		advance();
-	else if (lToken->name == ID)
-		advance();
-	else if (lToken->name == LPAREN)
-	{
-		advance();
-		expr();
-		match(RPAREN);
-	}
+	program();
+	//TESTE DA TABELA DE SÍMBOLOS
+	/*
+    currentST = new SymbolTable(currentST);
+	currentST = new SymbolTable(currentST);
+    if (currentST->add(new STEntry(new Token(ID), "bianca")))
+		cout << "Adição de bianca deu certo" << endl;
 	else
-		error("Fator mal formado!");
+		cout << "Adição de bianca não deu certo" << endl;
+
+	STEntry* obj = currentST->get("bianca");
+
+	if (obj)
+		cout << "Encontrei o símbolo " << obj->lexeme << endl;
+	else
+		cout << "Não encontrei o símbolo buscado" << endl;
+
+	//Fim do escopo
+	currentST = currentST->getParent();
+
+	obj = currentST->get("bianca");
+
+	if (obj)
+		cout << "Encontrei o símbolo " << obj->lexeme << endl;
+	else
+		cout << "Não encontrei o símbolo buscado" << endl;*/
+
+	/////////////////////////////
+
+	cout << "Compilação encerrada com sucesso!\n";
+}
+
+void
+Parser::program()
+{
+	if (lToken->name == CLASS)
+		classList();
+}
+
+void
+Parser::classList()
+{
+	do
+	{
+		classDecl();
+	}
+	while(lToken->name == CLASS);
+}
+
+void
+Parser::classDecl()
+{
+	match(CLASS);
+	match(ID);
+
+	if (lToken->name == EXTENDS)
+	{
+		advance();
+		match(ID);
+	}
+
+	//classBody();
+}
+
+//CONTINUAR
+
+void
+Parser::initSimbolTable()
+{
+	Token* t;
+        
+	t = new Token(CLASS, "class");
+	globalST->add(new STEntry(t, true));
+	t = new Token(EXTENDS, "extends");
+    globalST->add(new STEntry(t, true));
+    t = new Token(PUBLIC, "public");
+    globalST->add(new STEntry(t, true));
+	//CONTINUAR...
 }
 
 void
 Parser::error(string str)
 {
-	cout << str << endl;
+	cout << "Linha " << scanner->getLine() << ": " << str << endl;
 
 	exit(EXIT_FAILURE);
 }

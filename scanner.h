@@ -1,18 +1,35 @@
+#include "symboltable.h"
 #include "token.h"
+#include <fstream>
+#include <string>
+
+using namespace std;
 
 class Scanner 
 {
     private: 
-        string input;//Armazena o texto de entrada
-        int pos;//Posição atual
+        string input;       // Armazena o texto de entrada
+        int pos;            // Posição atual
+        int line;           // Linha atual    
+        SymbolTable* st;    // Ponteiro p/ tabela de simbolos
+        char currentChar;   // Caracter atualmente lido
     
+
+        void readChar();
+        void skipWhitespace();
+        void skipComments();
+        Token* processIdentifierOrKeyword();
+        Token* processNumber();
+        Token* processString();
+        Token* processOperator();
+        Token* processSeparator();
+
     public:
-        //Construtor
-        Scanner(string);
+        Scanner(string, SymbolTable*); //Construtor
+
+        int getLine();
     
-        //Método que retorna o próximo token da entrada
-        Token* nextToken();        
-    
-        //Método para manipular erros
-        void lexicalError();
+        Token* nextToken(); //Método que retorna o próximo token da entrada 
+
+        void lexicalError(string); //Método para manipular erros
 };
