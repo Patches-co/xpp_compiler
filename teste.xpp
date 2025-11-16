@@ -1,0 +1,47 @@
+// teste.xpp
+/*
+ * Este é um programa de teste completo
+ * para a linguagem X++.
+ */
+class Teste {
+
+    // 1. Teste de Declaração de Variáveis [cite: 39-51]
+    int a;
+    string b;
+    Teste c; // <-- Teste de ID como Type
+
+    // 2. Teste de Construtor [cite: 55-58]
+    constructor() {
+        a = 10; // Teste de AtribStat [cite: 94-96]
+        b = "Ola";
+        c = new Teste(); // Teste de AllocExpression [cite: 116-117]
+    }
+
+    // 3. Teste de Método com Parâmetros [cite: 59-66, 68-74]
+    int meuMetodo(int x, string y) {
+        
+        // 4. Teste de Statements [cite: 75-88]
+        print("Iniciando o metodo..."); // PrintStat [cite: 97-98]
+        read(a); // ReadStat [cite: 99-100]
+
+        // 5. Teste de If/Else [cite: 105-106]
+        if (a > x) {
+            print(y);
+        } else {
+            print("A e menor ou igual a x");
+        }
+
+        // 6. Teste de For / Break [cite: 107-110, 89]
+        for (a = 0; a < 10; a = a + 1) {
+            if (a == 5) {
+                break;
+            }
+        }
+        
+        // 7. Teste de LValue complexo [cite: 111-113]
+        c.a = a; 
+
+        // 8. Teste de Return [cite: 102]
+        return a * 2;
+    }
+}

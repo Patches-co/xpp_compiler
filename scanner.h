@@ -29,7 +29,7 @@ class Scanner
 
         int getLine();
     
-        Token* nextToken(); //Método que retorna o próximo token da entrada 
+        Token* nextToken();            //Método que retorna o próximo token da entrada 
 
-        void lexicalError(string); //Método para manipular erros
+        void lexicalError(string);     //Método para manipular erros
 };
