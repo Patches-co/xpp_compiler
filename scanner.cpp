@@ -139,9 +139,9 @@ Token* Scanner::processIdentifierOrKeyword()
 
     STEntry* entry = st->get(lexeme);
     
-    if (entry != nullptr) {
+    if (entry != nullptr && entry->reserved) {
         // palavra reservada
-        return new Token(entry->token->name, startLine);
+        return new Token(entry->token->name, entry->token->lexeme, startLine);
     } else {
         // ID
         return new Token(ID, lexeme, startLine);

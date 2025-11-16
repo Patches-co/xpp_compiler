@@ -63,7 +63,7 @@ enum Attributes {
     ATTR_SEP_COMMA,      // ,
     ATTR_SEP_DOT,        // .
     ATTR_SEP_SEMICOLON   // ;
-}
+};
 
 class Token 
 {

@@ -97,15 +97,50 @@ Parser::classDecl()
 void
 Parser::initSimbolTable()
 {
-	Token* t;
-        
-	t = new Token(CLASS, "class");
-	globalST->add(new STEntry(t, true));
-	t = new Token(EXTENDS, "extends");
+    Token* t;
+    int line = 0;
+
+    t = new Token(CLASS, "class", line);
     globalST->add(new STEntry(t, true));
-    t = new Token(PUBLIC, "public");
+    
+    t = new Token(EXTENDS, "extends", line);
     globalST->add(new STEntry(t, true));
-	//CONTINUAR...
+    
+    t = new Token(INT, "int", line);
+    globalST->add(new STEntry(t, true));
+    
+    t = new Token(STRING, "string", line);
+    globalST->add(new STEntry(t, true));
+    
+    t = new Token(BREAK, "break", line);
+    globalST->add(new STEntry(t, true));
+    
+    t = new Token(PRINT, "print", line);
+    globalST->add(new STEntry(t, true));
+    
+    t = new Token(READ, "read", line);
+    globalST->add(new STEntry(t, true));
+    
+    t = new Token(RETURN, "return", line);
+    globalST->add(new STEntry(t, true));
+    
+    t = new Token(SUPER, "super", line);
+    globalST->add(new STEntry(t, true));
+    
+    t = new Token(IF, "if", line);
+    globalST->add(new STEntry(t, true));
+    
+    t = new Token(ELSE, "else", line);
+    globalST->add(new STEntry(t, true));
+    
+    t = new Token(FOR, "for", line);
+    globalST->add(new STEntry(t, true));
+    
+    t = new Token(NEW, "new", line);
+    globalST->add(new STEntry(t, true));
+    
+    t = new Token(CONSTRUCTOR, "constructor", line);
+    globalST->add(new STEntry(t, true));
 }
 
 void
