@@ -5,11 +5,13 @@ class Parser
 	private:
 		Scanner* scanner;
 		Token* lToken;
+		Token* peekToken;
 		SymbolTable* globalST;
     	SymbolTable* currentST;
 
 		void advance();
 		void match(int);
+		void match(int, int);
 		void error(string);
 		void initSimbolTable();
 

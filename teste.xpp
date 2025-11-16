@@ -22,7 +22,7 @@ class Teste {
         
         // 4. Teste de Statements [cite: 75-88]
         print("Iniciando o metodo..."); // PrintStat [cite: 97-98]
-        read(a); // ReadStat [cite: 99-100]
+        read a; // ReadStat [cite: 99-100]
 
         // 5. Teste de If/Else [cite: 105-106]
         if (a > x) {

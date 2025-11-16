@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <ctype.h>//Funções de caracteres
 #include <string>
@@ -11,9 +13,9 @@ enum Names
     END_OF_FILE, // 1
 
     // Tokens Identificadores
-    ID,             // 2
-    INTEGER_LITERAL // 3
-    STRING_LITERAL, // 4
+    ID,                 // 2
+    INTEGER_LITERAL,    // 3
+    STRING_LITERAL,     // 4
 
     // Tokens de Categoria
     OP,     // 5
@@ -37,7 +39,7 @@ enum Names
 };
 
 enum Attributes {
-    UNDEF = 0,
+    ATTR_UNDEF = 0,
  
     // Operadores
     ATTR_OP_LT,     // <
@@ -76,7 +78,7 @@ class Token
         Token(int name, int line)
         {
             this->name = name;
-            this->attribute = UNDEF;
+            this->attribute = ATTR_UNDEF;
             this->lexeme = "";
             this->line = line;
         }
@@ -92,7 +94,7 @@ class Token
         Token(int name, string l, int line)
         {
             this->name = name;
-            this->attribute = UNDEF;
+            this->attribute = ATTR_UNDEF;
             this->lexeme = l;
             this->line = line;
         }

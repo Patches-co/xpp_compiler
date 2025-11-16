@@ -31,5 +31,5 @@ class Scanner
     
         Token* nextToken();            //Método que retorna o próximo token da entrada 
 
-        void lexicalError(string);     //Método para manipular erros
+        void lexicalError(const string&);     //Método para manipular erros
 };
