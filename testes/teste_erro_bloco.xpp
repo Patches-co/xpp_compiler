@@ -1,0 +1,10 @@
+// teste_erro_bloco.xpp
+class Bloco {
+    int x;
+
+    int meuMetodo() {
+        // Erro: 'if' sem chaves
+        if (x > 0) 
+            print(x); // <-- ERRO AQUI
+    }
+}

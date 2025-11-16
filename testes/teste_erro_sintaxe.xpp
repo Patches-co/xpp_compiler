@@ -1,0 +1,11 @@
+// teste_erro_sintaxe.xpp
+class Sintaxe {
+    
+    constructor() {
+        int i;
+        // Erro: 'for' com sintaxe errada (falta ;)
+        for (i = 0 i < 10; i = i + 1) { // <-- ERRO AQUI
+            print(i);
+        }
+    }
+}

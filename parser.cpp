@@ -10,12 +10,14 @@ Parser::Parser(string input)
 }
 
 void
-Parser::advance() // c/lookahead
+Parser::advance() // c/lookahead de 3 tokens
 {
 	lToken = peekToken;
+	peekToken = peek2Token;
+
 	if (lToken->name != END_OF_FILE)
 	{
-		peekToken = scanner->nextToken();
+		peek2Token = scanner->nextToken();
 	}
 }
 
@@ -33,6 +35,7 @@ Parser::run()
 {
 	lToken = scanner->nextToken();
 	peekToken = scanner->nextToken();
+	peek2Token = scanner->nextToken();
 
 	program();
 	cout << "Compilação encerrada com sucesso!\n";
@@ -73,6 +76,7 @@ Parser::classDecl()
 void
 Parser::classBody()
 {
+	match(SEP, ATTR_SEP_LBRACE);
 	if (lToken->name == SEP && lToken->attribute == ATTR_SEP_LBRACE) {
 		advance();
 	} else {
@@ -104,8 +108,17 @@ Parser::varDeclList()
 {
 	varDecl();
 
-	while (lToken->name == INT || lToken->name == STRING ||
-		(lToken->name == ID && peekToken->name == ID))
+while ( (lToken->name == INT || lToken->name == STRING) &&
+	        (peekToken->name == ID) &&
+	        (peek2Token->name == SEP && (peek2Token->attribute == ATTR_SEP_SEMICOLON || 
+	                                     peek2Token->attribute == ATTR_SEP_COMMA)) )
+	{
+		varDecl();
+	}
+	
+	while ( (lToken->name == ID && peekToken->name == ID) &&
+	        (peek2Token->name == SEP && (peek2Token->attribute == ATTR_SEP_SEMICOLON ||
+	                                     peek2Token->attribute == ATTR_SEP_COMMA)) )
 	{
 		varDecl();
 	}

@@ -6,6 +6,7 @@ class Parser
 		Scanner* scanner;
 		Token* lToken;
 		Token* peekToken;
+		Token* peek2Token;
 		SymbolTable* globalST;
     	SymbolTable* currentST;
 

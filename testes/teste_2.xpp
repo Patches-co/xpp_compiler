@@ -1,0 +1,35 @@
+// Testa herança, super() e LValues complexos.
+
+class Veiculo {
+    int velocidade;
+    
+    constructor() {
+        velocidade = 0;
+    }
+
+    int getVel() {
+        return velocidade;
+    }
+}
+
+class Carro extends Veiculo {
+    int[] rodas;
+    string nome;
+
+    constructor(string n) {
+        super(); // Teste de SuperStat
+        nome = n;
+        rodas = new int[4]; // Teste de AllocExpression (array)
+    }
+
+    int testComplex() {
+        // Teste de LValue complexo
+        this.rodas[0] = 1; 
+        
+        // Teste de Expressão
+        if ( (rodas[0] + 1) == 2 ) {
+            print("Array OK");
+        }
+        return 0;
+    }
+}

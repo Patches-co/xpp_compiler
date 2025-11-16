@@ -1,0 +1,10 @@
+// teste_erro_lexico.xpp
+class Lexico {
+    int a;
+    
+    constructor() {
+        a = 10;
+        // O símbolo '$' não existe na gramática léxica
+        a = a $ 5; // <-- ERRO AQUI
+    }
+}
